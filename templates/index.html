@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Page Form</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header>
+    <nav>
+      <!-- Swap link order -->
+      <a href="#" id="page1-link">Generate Receipt</a>
+      <a href="#" id="page2-link">Add/Update Product</a>
+    </nav>
+  </header>
+  <main>
+    <!-- Page 1: Generate Receipt (visible by default) -->
+    <section id="page1" class="page">
+      <h1>Generate Receipt</h1>
+      <form id="receipt-form" action="/generate_receipt" method="post">
+        <label for="customer">Customer:</label>
+        <input type="text" id="customer" name="customer" required>
+        
+        <div class="checkbox-group">
+          <input type="checkbox" id="is-reseller" name="is-reseller">
+          <label for="is-reseller">Reseller</label>
+        </div>
+
+        <div id="items-container">
+        </div>
+        
+        <button type="button" id="add-item">Add Item</button>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+    <!-- Page 2: Add/Update Product (starts hidden) -->
+    <section id="page2" class="page hidden">
+      <h1>Add/Update Product</h1>
+      <form id="product-form" action="/submit_product" method="post">
+        <label for="product-name">Product Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="code">Product Code:</label>
+        <input type="text" id="code" name="code" required>
+        
+        <label for="normal-price">Normal Price:</label>
+        <input type="number" id="normal-price" name="normal-price" required>
+        
+        <label for="reseller-price">Reseller Price:</label>
+        <input type="number" id="reseller-price" name="reseller-price" required>
+        
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+  <div id="popup" style="display:none;">
+    <div class="popup-content">
+        <p id="popup-message"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
